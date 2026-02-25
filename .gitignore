@@ -1,0 +1,27 @@
+# 大型数据库文件（需本地重建）
+*.db
+unified_indicator_dict.db
+edb_indicator_dict.db
+
+# 大型中间文件
+edb_indicator_dict.json
+*.pkl
+
+# 输出文件
+*.xlsx
+*.html
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

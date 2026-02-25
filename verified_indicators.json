@@ -1,0 +1,65 @@
+{
+  "_说明": "已验证指标清单 - 经人工确认的指标代码，可直接使用无需再次确认",
+  "_更新规则": "每次plan阶段确认指标后，将新确认的指标追加到对应分类中",
+
+  "EDB": {
+    "_说明": "宏观经济指标 (来源: fetch_monetary_data.py 2026-02实测确认)",
+
+    "10年期国债收益率":          {"code": "EMM00166466", "name": "中债国债到期收益率:10年", "freq": "日", "verified": "2026-02-25"},
+    "5年期国债收益率":           {"code": "EMM00166462", "name": "中债国债到期收益率:5年", "freq": "日", "verified": "2026-02-25"},
+    "3年期国债收益率":           {"code": "EMM00166460", "name": "中债国债到期收益率:3年", "freq": "日", "verified": "2026-02-25"},
+    "7年期国债收益率":           {"code": "EMM00166464", "name": "中债国债到期收益率:7年", "freq": "日", "verified": "2026-02-25"},
+
+    "OMO逆回购利率_7天":        {"code": "E1715081", "name": "7天逆回购操作利率", "freq": "日", "verified": "2026-02-25"},
+    "MLF利率_1年":              {"code": "E1715121", "name": "1年期MLF投放利率", "freq": "日", "verified": "2026-02-25"},
+    "LPR_1年":                  {"code": "E1702465", "name": "1年期LPR", "freq": "日", "verified": "2026-02-25"},
+    "LPR_5年以上":              {"code": "E1707199", "name": "5年以上LPR", "freq": "日", "verified": "2026-02-25"},
+    "LPR_1年_月频":             {"code": "EMM02326278", "name": "LPR:1年(月频)", "freq": "月", "verified": "2026-02-25"},
+
+    "DR007":                    {"code": "E1300004", "name": "存款类机构质押式回购加权利率:7天", "freq": "日", "verified": "2026-02-25"},
+    "SHIBOR_隔夜":              {"code": "EMM00166252", "name": "月均SHIBOR:隔夜", "freq": "月", "verified": "2026-02-25"},
+
+    "加权平均贷款利率_一般贷款":  {"code": "E1701127", "name": "金融机构人民币贷款加权平均利率:一般贷款", "freq": "季", "verified": "2026-02-25"},
+    "加权平均贷款利率_总":       {"code": "E1701126", "name": "金融机构人民币贷款加权平均利率", "freq": "季", "verified": "2026-02-25"},
+
+    "M1_同比":                  {"code": "EMM00087113", "name": "中国:M1:同比", "freq": "月", "verified": "2026-02-25"},
+    "M2_同比":                  {"code": "EMM00087117", "name": "中国:M2:同比", "freq": "月", "verified": "2026-02-25"},
+    "M0_同比":                  {"code": "EMM00087111", "name": "中国:M0:同比", "freq": "月", "verified": "2026-02-25"},
+
+    "社融存量_同比":             {"code": "EMM00634721", "name": "社会融资规模存量:同比", "freq": "月", "verified": "2026-02-25"},
+
+    "CPI_同比":                 {"code": "EMM00072301", "name": "CPI:当月同比", "freq": "月", "verified": "2026-02-25"},
+    "PPI_同比":                 {"code": "EMM00073348", "name": "PPI:全部工业品:当月同比", "freq": "月", "verified": "2026-02-25"},
+
+    "GDP_当季同比":             {"code": "EMM00000024", "name": "中国:GDP:不变价:同比", "freq": "季", "verified": "2026-02-25"},
+
+    "商业银行净息差":            {"code": "EMM00088194", "name": "商业银行:净息差", "freq": "季", "verified": "2026-02-25"},
+
+    "存款准备金率_大型":         {"code": "EMM01280574", "name": "存款准备金率:大型金融机构(月)", "freq": "月", "verified": "2026-02-25"},
+    "存款准备金率_中小型":       {"code": "EMM01280575", "name": "存款准备金率:中小型金融机构(月)", "freq": "月", "verified": "2026-02-25"}
+  },
+
+  "CSS": {
+    "_说明": "个股截面指标 (来源: EMQuant API实测确认)",
+
+    "营业收入":                 {"code": "INCOMESTATEMENT_9", "name": "营业收入", "call": "c.css(\"{代码}\", \"INCOMESTATEMENT_9\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25"},
+    "归母净利润":               {"code": "INCOMESTATEMENT_61", "name": "归属于母公司股东的净利润", "call": "c.css(\"{代码}\", \"INCOMESTATEMENT_61\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25"},
+
+    "不良贷款率":               {"code": "BANKSPEIND_5", "name": "不良贷款率", "call": "c.css(\"{代码}\", \"BANKSPEIND_5\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "拨备覆盖率":               {"code": "BANKSPEIND_23", "name": "不良贷款拨备覆盖率", "call": "c.css(\"{代码}\", \"BANKSPEIND_23\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "成本收入比":               {"code": "BANKSPEIND_24", "name": "成本收入比", "call": "c.css(\"{代码}\", \"BANKSPEIND_24\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "资本充足率":               {"code": "BANKSPEIND_31", "name": "资本充足率(2013)", "call": "c.css(\"{代码}\", \"BANKSPEIND_31\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "核心一级资本充足率":        {"code": "BANKSPEIND_32", "name": "核心一级资本充足率(2013)", "call": "c.css(\"{代码}\", \"BANKSPEIND_32\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "一级资本充足率":           {"code": "BANKSPEIND_37", "name": "一级资本充足率(2013)", "call": "c.css(\"{代码}\", \"BANKSPEIND_37\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "贷款拨备率":               {"code": "BANKSPEIND_51", "name": "贷款拨备率", "call": "c.css(\"{代码}\", \"BANKSPEIND_51\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "流动性覆盖率":             {"code": "BANKSPEIND_63", "name": "流动性覆盖率", "call": "c.css(\"{代码}\", \"BANKSPEIND_63\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "存贷比":                   {"code": "BANKSPEIND_6", "name": "存贷款比例", "call": "c.css(\"{代码}\", \"BANKSPEIND_6\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "净息差_公布值":            {"code": "NETCARPUB", "name": "净息差(公布值)", "call": "c.css(\"{代码}\", \"NETCARPUB\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "净息差_计算值":            {"code": "NETCAR", "name": "净息差(计算值)", "call": "c.css(\"{代码}\", \"NETCAR\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+    "净利差_公布值":            {"code": "NETMARPUB", "name": "净利差(公布值)", "call": "c.css(\"{代码}\", \"NETMARPUB\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项，中行公布值可能为空"},
+    "净利差_计算值":            {"code": "NETMAR", "name": "净利差(计算值)", "call": "c.css(\"{代码}\", \"NETMAR\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "银行专项"},
+
+    "ROE_加权":                 {"code": "ROEWA", "name": "净资产收益率ROE(加权)", "call": "c.css(\"{代码}\", \"ROEWA\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25"},
+    "不良贷款率_总计_弃用":      {"code": "BLNPLARATIOTOTAL", "name": "不良贷款率_总计", "call": "c.css(\"{代码}\", \"BLNPLARATIOTOTAL\", \"ReportDate=YYYY-MM-DD,ReportType=1\")", "verified": "2026-02-25", "note": "⚠ 实测六大行返回空值，不要用！用BANKSPEIND_5"}
+  }
+}

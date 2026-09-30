@@ -12,7 +12,6 @@ import os
 import sys
 import json
 import pickle
-import traceback
 from datetime import datetime, timedelta
 
 import pandas as pd
@@ -27,8 +26,6 @@ EDB_MAP_FILE = os.path.join(OUTPUT_DIR, "edb_code_map.json")
 DATA_PKL_FILE = os.path.join(OUTPUT_DIR, "monetary_policy_data.pkl")
 DATA_XLSX_FILE = os.path.join(OUTPUT_DIR, "monetary_policy_data.xlsx")
 
-USERNAME = "zxzq6167"
-PASSWORD = "mt118983"
 
 START_DATE = "2013-01-01"
 END_DATE = datetime.today().strftime("%Y-%m-%d")
@@ -232,15 +229,27 @@ GOVERNOR_PERIODS = {
 # ============================================================
 def login_emquant():
     """登录EMQuant"""
+    username = os.environ.get("EMQUANT_USERNAME", "")
+    password = os.environ.get("EMQUANT_PASSWORD", "")
+    if not username.strip() or not password.strip():
+        print("[EMQuant] 请设置 EMQUANT_USERNAME 和 EMQUANT_PASSWORD")
+        return False
+    if any(char in value for value in (username, password) for char in (",", "\n", "\r", "\x00")):
+        print("[EMQuant] 凭据含不支持的选项分隔符")
+        return False
     from EmQuantAPI import c
     def mainCallback(quantdata):
         if str(quantdata.ErrorCode) in ("10001011", "10001009"):
             print("[EMQuant] 账号掉线")
 
-    options = f"ForceLogin=1,UserName={USERNAME},Password={PASSWORD}"
-    result = c.start(options, '', mainCallback)
+    options = f"ForceLogin=1,UserName={username},Password={password}"
+    try:
+        result = c.start(options, '', mainCallback)
+    except Exception:
+        print("[EMQuant] 登录异常，请在本地检查SDK和账号配置")
+        return False
     if result.ErrorCode != 0:
-        print(f"[EMQuant] 登录失败: {result.ErrorCode} - {result.ErrorMsg}")
+        print("[EMQuant] 登录失败，请在本地检查账号配置")
         return False
     # 修复：Windows ACP=65001(UTF-8)时，SDK默认用gbk解码会出错
     c.EncodeType = 'utf-8'
@@ -276,10 +285,9 @@ def fetch_all_edb_data():
                 else:
                     print(f"  [--] {name} ({code}): 无数据")
             else:
-                err = data.ErrorMsg if isinstance(data, c.EmQuantData) else str(data)
-                print(f"  [--] {name} ({code}): 请求失败 - {err}")
+                print(f"  [--] {name} ({code}): 请求失败")
         except Exception as e:
-            print(f"  [ERR] {name} ({code}): {e}")
+            print(f"  [ERR] {name} ({code}): 请求异常")
 
     return datasets
 
@@ -389,8 +397,7 @@ def main():
     except ImportError:
         print("\n[警告] EMQuantAPI 未安装，将仅使用硬编码数据")
     except Exception as e:
-        print(f"\n[警告] EMQuant出错: {e}")
-        traceback.print_exc()
+        print("\n[警告] EMQuant出错，将使用硬编码数据")
         try:
             from EmQuantAPI import c
             c.stop()

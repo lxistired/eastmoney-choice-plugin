@@ -200,3 +200,22 @@ Claude 搜索统一指标库 (build_unified_db.py)
 ## License
 
 MIT
+
+## EMQuant 凭据配置与离线检查
+
+`fetch_monetary_data.py` 在每次登录前读取 `EMQUANT_USERNAME` 和
+`EMQUANT_PASSWORD` 环境变量。请通过本地安全的运行环境注入已有账号配置；
+不要将真实凭据写入源码、命令历史、日志或提交。`.env.example` 仅说明变量名，
+脚本不会自动加载 `.env`。缺少配置时跳过登录并保留原有政策数据兜底。
+由于 SDK 使用逗号分隔选项，凭据不能含逗号、换行或 NUL。
+SDK 登录错误、异常及数据请求错误仅记录固定提示，不输出原始错误文本。
+
+离线回归检查（不需要 EMQuant、pandas 或网络）：
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+从当前代码移除凭据不会清除 Git 历史、既有克隆、缓存或日志。曾公开的凭据
+应由账号持有人自行撤销或轮换。任何历史清理、强制推送及远程引用删除需另行
+评估并授权，且无法保证删除他人保留的副本。
